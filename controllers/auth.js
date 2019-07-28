@@ -6,16 +6,22 @@ const Op = Sequelize.Op
 const User = require('../models/user')
 const keys = require('../config/keys')
 
+const asyncWrapper = require('../utils/asyncWrapper')
+
 exports.signup = async (req, res, next) => {
   const {email, username, password} = req.body
-  const existingUser = await User.findOne({
+  const [err, existingUser] = await asyncWrapper(User.findOne({
     where: {
       [Op.or]: [
         {email},
         {username}
       ]
     }
-  })
+  }))
+
+  if (err) {
+    throw new Error('Something went wrong')
+  }
 
   if (existingUser) {
     return res.status(422).json({message: 'email/username already exists'})
@@ -37,20 +43,32 @@ exports.signup = async (req, res, next) => {
 
 exports.login = async (req, res, next) => {
   const {username, password} = req.body
-  const existingUser = await User.findOne({
+  let err
+  let existingUser
+  let isMatch
+
+  [err, existingUser] = await asyncWrapper(User.findOne({
     where: {
       [Op.or]: [
         {email: username},
         {username}
       ]
     }
-  })
+  }))
+
+  if (err) {
+    throw new Error('Something went wrong')
+  }
 
   if (!existingUser) {
     return res.status(401).json({message: 'invalid username/password'})
   }
 
-  const isMatch = await bcrypt.compare(password, existingUser.password)
+  [err, isMatch] = await asyncWrapper(bcrypt.compare(password, existingUser.password))
+
+  if (err) {
+    throw new Error('Something went wrong')
+  }
 
   if (isMatch) {
     return jwt.sign(
