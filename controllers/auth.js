@@ -31,11 +31,16 @@ exports.signup = async (req, res, next) => {
     bcrypt.hash(password, salt, async (err, hashedPwd) => {
       if (err) throw err
       // await User.sync({force: true})
-      const user = await User.create({
+      const [userError, user] = await asyncWrapper(User.create({
         email,
         username,
         password: hashedPwd
-      })
+      }))
+
+      if (userError) {
+        throw new Error('Something went wrong')
+      }
+
       res.status(201).json({message: 'user created', user})
     })
   })
