@@ -23,7 +23,7 @@ module.exports = function(env, argv) {
       proxy: {
         '/api': {
           target: 'htp://localhost:5006',
-          pathRewrite:{'^/api' : ''}
+          pathRewrite: {'^/api': ''}
         }
       }
     },
@@ -31,10 +31,16 @@ module.exports = function(env, argv) {
       rules: [
         {
           test: /\.js$/,
-          include: [
-            path.resolve(__dirname, 'src')
-          ],
+          include: [path.resolve(__dirname, 'src')],
           loader: 'babel-loader'
+        },
+        {
+          test: /\.(png|jpe?g|gif)$/i,
+          loader: 'file-loader'
+        },
+        {
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader']
         }
       ]
     },

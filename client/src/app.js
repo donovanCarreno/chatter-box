@@ -1,11 +1,22 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import ReactDOM from 'react-dom'
+import {Global, css} from '@emotion/core'
+import Landing from './Landing'
+
+import 'normalize.css'
 
 function App() {
   return (
-    <div>
-      Hello World!!!
-    </div>
+    <Fragment>
+      <Global
+        styles={css`
+          * {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+          }
+        `}
+      />
+      <Landing />
+    </Fragment>
   )
 }
 
