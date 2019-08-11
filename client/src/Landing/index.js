@@ -1,7 +1,9 @@
 import React from 'react'
+import {Route} from 'react-router-dom'
 import {css} from '@emotion/core'
 
 import Login from './Login'
+import SignUp from './SignUp'
 
 import Restaurant from '../../assets/restaurant.jpg'
 
@@ -26,7 +28,8 @@ function Landing() {
   return (
     <div css={backgroundStyle}>
       <div css={containerStyle}>
-        <Login />
+        <Route exact path='/' component={Login} />
+        <Route path='/signup' component={SignUp} />
       </div>
     </div>
   )

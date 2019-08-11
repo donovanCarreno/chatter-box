@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react'
 import ReactDOM from 'react-dom'
 import {Global, css} from '@emotion/core'
-import Landing from './Landing'
+import AppRouter from './AppRouter'
 
 import 'normalize.css'
 
@@ -15,7 +15,7 @@ function App() {
           }
         `}
       />
-      <Landing />
+      <AppRouter />
     </Fragment>
   )
 }

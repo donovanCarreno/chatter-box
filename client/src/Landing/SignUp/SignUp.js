@@ -15,30 +15,33 @@ const linkStyle = css`
   }
 `
 
-function Login() {
+function SignUp() {
   function handleSubmit(e) {
     e.preventDefault()
   }
   return (
-    <FormContainer header='Login'>
+    <FormContainer header='Sign Up'>
       <form onSubmit={handleSubmit}>
         <div css={{marginBottom: 20}}>
-          <LabeledInput label='Email/Username' name='username' value='' onChange={() => {}} />
+          <LabeledInput label='Username' name='username' value='' onChange={() => {}} />
+        </div>
+        <div css={{marginBottom: 20}}>
+          <LabeledInput label='Email' name='email' value='' onChange={() => {}} />
         </div>
         <div css={{marginBottom: 20}}>
           <LabeledInput label='Password' type='password' name='password' value='' onChange={() => {}} />
         </div>
         <div css={{textAlign: 'center', marginBottom: 20}}>
-          <SubmitButton>Login</SubmitButton>
+          <SubmitButton>Sign Up</SubmitButton>
         </div>
       </form>
       <div css={{textAlign: 'center', color: 'whitesmoke'}}>
-        <Link css={linkStyle} to='/signup'>
-          Sign Up!
+        <Link css={linkStyle} to='/'>
+          Login
         </Link>
       </div>
     </FormContainer>
   )
 }
 
-export default Login
+export default SignUp

@@ -14,6 +14,7 @@ module.exports = function(env, argv) {
     devtool: env.production ? 'cheap-module-source-map' : 'cheap-module-eval-source-map',
     devServer: {
       contentBase: path.join(__dirname, 'dist'),
+      historyApiFallback: true,
       hot: true,
       open: true,
       overlay: {
