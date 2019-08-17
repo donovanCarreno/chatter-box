@@ -6,6 +6,10 @@ import FormContainer from '../../common/FormContainer'
 import LabeledInput from '../../common/LabeledInput'
 import SubmitButton from '../../common/SubmitButton'
 
+import useForm from '../../hooks/useForm'
+
+import {login} from '../../api'
+
 const linkStyle = css`
   color: whitesmoke;
   cursor: pointer;
@@ -16,17 +20,30 @@ const linkStyle = css`
 `
 
 function Login() {
+  const {values, setValue} = useForm()
   function handleSubmit(e) {
     e.preventDefault()
+    login(values).then(res => console.log({res}))
   }
+
+  function handleChange(e) {
+    setValue(e.target.name, e.target.value)
+  }
+
   return (
     <FormContainer header='Login'>
       <form onSubmit={handleSubmit}>
         <div css={{marginBottom: 20}}>
-          <LabeledInput label='Email/Username' name='username' value='' onChange={() => {}} />
+          <LabeledInput label='Email/Username' name='username' value={values.username || ''} onChange={handleChange} />
         </div>
         <div css={{marginBottom: 20}}>
-          <LabeledInput label='Password' type='password' name='password' value='' onChange={() => {}} />
+          <LabeledInput
+            label='Password'
+            type='password'
+            name='password'
+            value={values.password || ''}
+            onChange={handleChange}
+          />
         </div>
         <div css={{textAlign: 'center', marginBottom: 20}}>
           <SubmitButton>Login</SubmitButton>

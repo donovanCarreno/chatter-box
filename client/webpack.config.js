@@ -22,9 +22,8 @@ module.exports = function(env, argv) {
         errors: true
       },
       proxy: {
-        '/api': {
-          target: 'htp://localhost:5006',
-          pathRewrite: {'^/api': ''}
+        '/': {
+          target: 'http://localhost:5006'
         }
       }
     },

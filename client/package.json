@@ -11,6 +11,7 @@
   "dependencies": {
     "@emotion/babel-preset-css-prop": "^10.0.14",
     "@emotion/core": "^10.0.15",
+    "axios": "^0.19.0",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
