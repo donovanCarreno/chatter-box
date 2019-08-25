@@ -9,7 +9,8 @@ module.exports = function(env, argv) {
     entry: './src/app.js',
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: 'bundle.js'
+      filename: 'bundle.js',
+      publicPath: '/'
     },
     devtool: env.production ? 'cheap-module-source-map' : 'cheap-module-eval-source-map',
     devServer: {

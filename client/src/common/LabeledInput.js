@@ -13,6 +13,7 @@ const inputStyle = css`
   border-radius: 5px;
   background-color: whitesmoke;
   padding: 5px;
+  width: 100%;
 `
 
 function LabeledInput({label, type, name, value, onChange}) {

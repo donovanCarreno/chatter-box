@@ -15,7 +15,9 @@ const linkStyle = css`
   }
 `
 
-function SignUp() {
+function SignUp(props) {
+  console.log({props})
+
   function handleSubmit(e) {
     e.preventDefault()
   }

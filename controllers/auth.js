@@ -49,6 +49,11 @@ exports.signup = async (req, res, next) => {
 
 exports.login = async (req, res, next) => {
   const {username, password} = req.body
+
+  if (!username || !password) {
+    return res.status(401).json({message: 'invalid username/password'})
+  }
+
   let err
   let existingUser
   let isMatch

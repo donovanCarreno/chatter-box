@@ -6,6 +6,7 @@ const containerStyle = css`
   border: 1px solid whitesmoke;
   border-radius: 5px;
   padding: 20px;
+  width: 315px;
 `
 
 function FormContainer({header, children}) {
