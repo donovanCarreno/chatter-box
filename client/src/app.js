@@ -16,7 +16,7 @@ function PlaceHolder() {
 }
 
 function App() {
-  const {getToken: haveToken} = useAuth()
+  const {token} = useAuth()
   return (
     <Fragment>
       <Global
@@ -26,7 +26,7 @@ function App() {
           }
         `}
       />
-      {haveToken() ? <PlaceHolder /> : <Auth />}
+      {token ? <PlaceHolder /> : <Auth />}
     </Fragment>
   )
 }

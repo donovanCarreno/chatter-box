@@ -5,9 +5,7 @@ const tokenKey = '__chatter_box_token__'
 
 function AuthProvider({children, ...props}) {
   const [token, setToken] = React.useState()
-  const getToken = () => {
-    return window.localStorage.getItem(tokenKey)
-  }
+
   const saveToken = token => {
     window.localStorage.setItem(tokenKey, token)
     setToken(token)
@@ -17,8 +15,13 @@ function AuthProvider({children, ...props}) {
     setToken('')
   }
 
+  React.useEffect(() => {
+    const storedToken = window.localStorage.getItem(tokenKey)
+    setToken(storedToken)
+  }, [])
+
   return (
-    <AuthContext.Provider value={{token, getToken, saveToken, deleteToken}} {...props}>
+    <AuthContext.Provider value={{token, saveToken, deleteToken}} {...props}>
       {children}
     </AuthContext.Provider>
   )
