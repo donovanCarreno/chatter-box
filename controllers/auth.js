@@ -10,14 +10,13 @@ const asyncWrapper = require('../utils/asyncWrapper')
 
 exports.signup = async (req, res, next) => {
   const {email, username, password} = req.body
-  const [err, existingUser] = await asyncWrapper(User.findOne({
-    where: {
-      [Op.or]: [
-        {email},
-        {username}
-      ]
-    }
-  }))
+  const [err, existingUser] = await asyncWrapper(
+    User.findOne({
+      where: {
+        [Op.or]: [{email}, {username}]
+      }
+    })
+  )
 
   if (err) {
     throw new Error('Something went wrong')
@@ -31,11 +30,13 @@ exports.signup = async (req, res, next) => {
     bcrypt.hash(password, salt, async (err, hashedPwd) => {
       if (err) throw err
       // await User.sync({force: true})
-      const [userError, user] = await asyncWrapper(User.create({
-        email,
-        username,
-        password: hashedPwd
-      }))
+      const [userError, user] = await asyncWrapper(
+        User.create({
+          email,
+          username,
+          password: hashedPwd
+        })
+      )
 
       if (userError) {
         throw new Error('Something went wrong')
@@ -51,15 +52,13 @@ exports.login = async (req, res, next) => {
   let err
   let existingUser
   let isMatch
-
-  [err, existingUser] = await asyncWrapper(User.findOne({
-    where: {
-      [Op.or]: [
-        {email: username},
-        {username}
-      ]
-    }
-  }))
+  ;[err, existingUser] = await asyncWrapper(
+    User.findOne({
+      where: {
+        [Op.or]: [{email: username}, {username}]
+      }
+    })
+  )
 
   if (err) {
     throw new Error('Something went wrong')
@@ -69,7 +68,7 @@ exports.login = async (req, res, next) => {
     return res.status(401).json({message: 'invalid username/password'})
   }
 
-  [err, isMatch] = await asyncWrapper(bcrypt.compare(password, existingUser.password))
+  ;[err, isMatch] = await asyncWrapper(bcrypt.compare(password, existingUser.password))
 
   if (err) {
     throw new Error('Something went wrong')

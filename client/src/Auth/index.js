@@ -1,5 +1,5 @@
 import React from 'react'
-import {Route} from 'react-router-dom'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 import {css} from '@emotion/core'
 
 import Login from './Login'
@@ -24,15 +24,17 @@ const containerStyle = css`
   height: 90vh;
 `
 
-function Landing() {
+function Auth() {
   return (
     <div css={backgroundStyle}>
       <div css={containerStyle}>
-        <Route exact path='/' component={Login} />
-        <Route path='/signup' component={SignUp} />
+        <Router>
+          <Route exact path='/' component={Login} />
+          <Route path='/signup' component={SignUp} />
+        </Router>
       </div>
     </div>
   )
 }
 
-export default Landing
+export default Auth

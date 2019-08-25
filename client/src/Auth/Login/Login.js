@@ -7,6 +7,7 @@ import LabeledInput from '../../common/LabeledInput'
 import SubmitButton from '../../common/SubmitButton'
 
 import useForm from '../../hooks/useForm'
+import {useAuth} from '../../context/auth-context'
 
 import {login} from '../../api'
 
@@ -21,9 +22,13 @@ const linkStyle = css`
 
 function Login() {
   const {values, setValue} = useForm()
+  const {saveToken} = useAuth()
+
   function handleSubmit(e) {
     e.preventDefault()
-    login(values).then(res => console.log({res}))
+    login(values).then(res => {
+      saveToken(res.data.token)
+    })
   }
 
   function handleChange(e) {

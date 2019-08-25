@@ -1,11 +1,22 @@
 import React, {Fragment} from 'react'
 import ReactDOM from 'react-dom'
 import {Global, css} from '@emotion/core'
-import AppRouter from './AppRouter'
+import {AuthProvider, useAuth} from './context/auth-context'
+import Auth from './Auth'
 
 import 'normalize.css'
 
+function PlaceHolder() {
+  const {deleteToken} = useAuth()
+  return (
+    <div>
+      <button onClick={deleteToken}>Logout</button>
+    </div>
+  )
+}
+
 function App() {
+  const {token} = useAuth()
   return (
     <Fragment>
       <Global
@@ -15,9 +26,14 @@ function App() {
           }
         `}
       />
-      <AppRouter />
+      {token ? <PlaceHolder /> : <Auth />}
     </Fragment>
   )
 }
 
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(
+  <AuthProvider>
+    <App />
+  </AuthProvider>,
+  document.getElementById('root')
+)
