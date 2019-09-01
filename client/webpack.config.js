@@ -1,8 +1,10 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
+const webpack = require('webpack')
 
 module.exports = function(env, argv) {
+  const baseURL = env.production ? '' : 'http://localhost:5006'
   console.log({env})
   return {
     mode: env.production ? 'production' : 'development',
@@ -21,11 +23,6 @@ module.exports = function(env, argv) {
       overlay: {
         warnings: true,
         errors: true
-      },
-      proxy: {
-        '/': {
-          target: 'http://localhost:5006'
-        }
       }
     },
     module: {
@@ -49,6 +46,9 @@ module.exports = function(env, argv) {
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
         template: 'index.html'
+      }),
+      new webpack.DefinePlugin({
+        'global.BASE_URL': JSON.stringify(baseURL)
       })
     ]
   }
