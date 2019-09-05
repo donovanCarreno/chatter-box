@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import {Global, css} from '@emotion/core'
 import {AuthProvider, useAuth} from './context/auth-context'
 import Auth from './Auth'
+import MainView from './MainView'
 
 import 'normalize.css'
 
@@ -26,7 +27,7 @@ function App() {
           }
         `}
       />
-      {token ? <PlaceHolder /> : <Auth />}
+      {token ? <MainView /> : <Auth />}
     </Fragment>
   )
 }
